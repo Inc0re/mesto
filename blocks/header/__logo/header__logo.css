@@ -1,0 +1,15 @@
+.header__logo {
+  background-image: url(../../../images/logo.svg);
+  width: 142px;
+  height: 33px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding-top: 45px;
+  padding-bottom: 41px;
+  transition: opacity .3s linear;
+}
+
+.header__logo:hover {
+  opacity: 0.6;
+}
