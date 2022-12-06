@@ -1,0 +1,12 @@
+.edit-form__field {
+  border: none;
+  border-bottom: 1px solid black;
+  margin-top: 30px;
+  line-height: 2;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.edit-form__field::placeholder {
+  color: #000; 
+}
