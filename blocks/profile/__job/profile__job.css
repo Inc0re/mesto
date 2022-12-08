@@ -4,4 +4,8 @@
   line-height: 1.22;
   font-weight: 400;
   grid-area: job;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 520px;
 }

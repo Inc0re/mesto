@@ -6,4 +6,8 @@
   margin: 0;
   /* margin: 62px 0 0; */
   align-self: end;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 520px;
 }

@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./pages/index.css">
+  <script src="./js/script.js" defer></script>
   <title>Mesto</title>
 </head>
+
 <body>
   <div class="page">
     <header class="header">
@@ -23,11 +26,11 @@
         <a class="profile__add-button" href="#"></a>
         <div class="popup">
           <div class="popup__container">
-            <a  class="popup__close" href="#"></a>
+            <a class="popup__close" href="#"></a>
             <form action="" class="edit-form" method="post">
               <legend class="edit-form__title">Редактировать профиль</legend>
-              <input class="edit-form__field" name="name" type="text" placeholder="Жак-Ив Кусто">
-              <input class="edit-form__field" name="job" type="text" placeholder="Исследователь океана">
+              <input class="edit-form__field" name="name" type="text" placeholder="Имя">
+              <input class="edit-form__field" name="job" type="text" placeholder="Место работы">
               <input class="edit-form__btn-save" type="button" value="Сохранить">
             </form>
           </div>
@@ -84,6 +87,6 @@
       <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
   </div>
-  <script src="./js/script.js"></script>
 </body>
+
 </html>
