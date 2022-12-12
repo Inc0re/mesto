@@ -9,3 +9,11 @@
   overflow: hidden;
   max-width: 520px;
 }
+
+@media screen and (max-width: 425px) {
+  .profile__job {
+    font-size: 14px;
+    text-align: center;
+    margin-right: 18px;
+  }
+}

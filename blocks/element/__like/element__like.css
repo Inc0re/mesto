@@ -1,8 +1,8 @@
 .element__like {
   background-image: url(./../../../images/like-button.svg);
+  background-size: contain;
   width: 22px;
   height: 19px;
-  margin-right: 20px;
   transition: opacity .3s linear;
 }
 

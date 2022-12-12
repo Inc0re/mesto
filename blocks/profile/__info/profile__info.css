@@ -10,3 +10,11 @@
   margin-left: 30px;
   margin-top: 42px;
 }
+
+@media screen and (max-width: 768px) {
+  .profile__info {
+    margin-top: 26px;
+    margin-left: 25px;
+    column-gap: 10px;
+  }
+}

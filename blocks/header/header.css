@@ -4,3 +4,9 @@
   margin: 0 auto;
   border-bottom: 1px solid #545454;
 }
+
+/* @media screen and (max-width: 425px) {
+  .header {
+    padding-left: 27px;
+  }
+} */

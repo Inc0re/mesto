@@ -7,6 +7,8 @@
   font-weight: 400;
 }
 
-/* .edit-form__field::placeholder {
-  color: #000; 
+/* @media screen and (max-width: 425px) {
+  .edit-form__field {
+    
+  }
 } */

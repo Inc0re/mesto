@@ -5,3 +5,10 @@
   font-weight: 900;
   margin-bottom: 14px;
 }
+
+@media screen and (max-width: 425px) {
+  .edit-form__title {
+    font-size: 18px;
+    margin-bottom: 40px;
+  }
+}

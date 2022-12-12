@@ -9,3 +9,11 @@
   border-radius: 2px;
   min-height: 50px;
 }
+
+@media screen and (max-width: 425px) {
+  .edit-form__btn-save {
+    font-size: 14px;
+    min-height: 46px;
+    margin-top: 44px;
+  }
+}

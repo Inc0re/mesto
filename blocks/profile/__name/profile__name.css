@@ -11,3 +11,15 @@
   overflow: hidden;
   max-width: 520px;
 }
+
+@media screen and (max-width: 768px) {
+  .profile__name {
+    font-size: 34px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .profile__name {
+    font-size: 27px;
+  }
+}
