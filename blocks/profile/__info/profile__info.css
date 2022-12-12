@@ -1,10 +1,9 @@
 .profile__info {
   display: grid;
-  
-  grid-template-areas: 
+
+  grid-template-areas:
     'name edit'
-    'job job'
-  ;
+    'job job';
   row-gap: 10px;
   column-gap: 18px;
   margin-left: 30px;
