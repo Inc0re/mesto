@@ -6,8 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./pages/index.css">
-  <script src="./js/index.js" defer></script>
-  <title>Mesto</title>
+  <title>Место</title>
 </head>
 
 <body class="page">
@@ -20,66 +19,53 @@
         <div class="profile__avatar"></div>
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <a class="profile__edit-button" href="#"></a>
+          <button class="profile__edit-button" type="button"></button>
           <p class="profile__job">Исследователь океана</p>
         </div>
-        <a class="profile__add-button" href="#"></a>
-        <div class="popup">
-          <div class="popup__container">
-            <a class="popup__close" href="#"></a>
-            <form action="#" method="post">
-              <fieldset class="edit-form">
-                <legend class="edit-form__title">Редактировать профиль</legend>
-                <input class="edit-form__field" name="name" type="text" placeholder="Имя">
-                <input class="edit-form__field" name="job" type="text" placeholder="Место работы">
-                <input class="edit-form__btn-save" type="button" value="Сохранить">
-              </fieldset>
-            </form>
-          </div>
-        </div>
+        <button class="profile__add-button" type="button"></button>
       </section>
       <section>
         <ul class="elements">
           <li class="element">
             <img class="element__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
             <div class="element__control">
-              <div class="element__title">Карачаевск</div>
-              <div class="element__like element__like_active"></div>
+              <h2 class="element__title">Карачаевск</h2>
+              <button type="button" class="element__like element__like_active"></button>
             </div>
           </li>
           <li class="element">
             <img class="element__image" src="./images/elbrus.jpg" alt="Эльбрус">
             <div class="element__control">
-              <div class="element__title">Гора Эльбрус</div>
-              <div class="element__like"></div>
+              <h2 class="element__title">Гора Эльбрус</h2>
+              <button type="button" class="element__like"></button>
             </div>
           </li>
           <li class="element">
             <img class="element__image" src="./images/dambay.jpg" alt="Домбай">
             <div class="element__control">
-              <div class="element__title">Домбай</div>
-              <div class="element__like"></div>
+              <h2 class="element__title">Домбай</h2>
+              <button type="button" class="element__like"></button>
             </div>
           </li>
           <li class="element">
             <img class="element__image" src="./images/elbrus.jpg" alt="Эльбрус">
             <div class="element__control">
-              <div class="element__title">Гора Эльбрус</div>
-              <div class="element__like"></div>
+              <h2 class="element__title">Гора Эльбрус</h2>
+              <button type="button" class="element__like"></button>
             </div>
           </li>
           <li class="element">
             <img class="element__image" src="./images/dambay.jpg" alt="Домбай">
             <div class="element__control">
-              <div class="element__title">Домбай</div>
-              <div class="element__like"></div>
+              <h2 class="element__title">Домбай</h2>
+              <button type="button" class="element__like"></button>
             </div>
           </li>
           <li class="element">
             <img class="element__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
             <div class="element__control">
-              <div class="element__title">Карачаево-Черкесия</div>
-              <div class="element__like"></div>
+              <h2 class="element__title">Карачаево-Черкесия</h2>
+              <button type="button" class="element__like"></button>
             </div>
           </li>
         </ul>
@@ -88,7 +74,19 @@
     <footer class="footer">
       <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
+    <div class="popup">
+      <div class="popup__container">
+        <button class="popup__close" type="button"></button>
+        <form action="#" class="edit-form" method="post" name="profile">
+          <h2 class="edit-form__title">Редактировать профиль</h2>
+          <input class="edit-form__field" name="name" type="text" placeholder="Имя">
+          <input class="edit-form__field" name="job" type="text" placeholder="Место работы">
+          <button class="edit-form__btn-save" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
   </div>
+  <script src="./js/index.js"></script>
 </body>
 
 </html>

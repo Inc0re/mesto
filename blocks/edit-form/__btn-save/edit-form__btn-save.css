@@ -8,6 +8,13 @@
   border: none;
   border-radius: 2px;
   min-height: 50px;
+  padding: 0;
+  transition: opacity .3s linear;
+  cursor: pointer;
+}
+
+.edit-form__btn-save:hover {
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 425px) {
