@@ -5,7 +5,8 @@
   line-height: 1.22;
   font-weight: 400;
   margin-top: 48px;
-  border: none;
+  border: 0 none;
+  outline: 0 none;
   border-radius: 2px;
   min-height: 50px;
   padding: 0;
@@ -21,6 +22,6 @@
   .edit-form__btn-save {
     font-size: 14px;
     min-height: 46px;
-    margin-top: 44px;
+    margin-top: 45px;
   }
 }
