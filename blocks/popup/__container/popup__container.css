@@ -2,10 +2,8 @@
   background: #fff;
   border-radius: 10px;
   min-width: 430px;
-  /* min-height: 330px; */
   position: relative;
-  /* display: flex; */
-  /* flex-direction: column; */
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
 }
 
 @media screen and (max-width: 550px) {
