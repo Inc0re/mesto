@@ -1,15 +1,25 @@
 // Секция выбора нужных элементов на странице
 // Константы и переменные
-const popupCloseBtn = document.querySelector('.popup__close');
+const popupCloseBtnsArr = document.querySelectorAll('.popup__close');
 const editProfileBtn = document.querySelector('.profile__edit-button');
+const addPlaceBtn = document.querySelector('.profile__add-button');
 const elements = document.querySelector('.elements');
-const nameInput = document.querySelector(`input[name='name']`);
-const jobInput = document.querySelector(`input[name='job']`);
+// Элементы попапа редактирования профиля
+const editProfilePopup = document.querySelector('#edit-profile');
+const editProfileFormElement = editProfilePopup.querySelector('.edit-form');
+const nameInput = editProfileFormElement.querySelector(`input[name='name']`);
+const jobInput = editProfileFormElement.querySelector(`input[name='job']`);
+// Элементы Имя и Место работы в профиле
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
-const popup = document.querySelector('.popup');
-const formElement = document.querySelector('.edit-form');
+// Элементы попапа добавления места
+const addPlacePopup = document.querySelector('#add-place');
+const addPlaceFormElement = addPlacePopup.querySelector('.edit-form');
+const placeInput = addPlaceFormElement.querySelector(`input[name='title']`);
+const linkInput = addPlaceFormElement.querySelector(`input[name='link']`);
+// Шаблон карточки
 const cardTemplate = document.querySelector('#card').content;
+// Массив для заполнения карточек по умолчанию
 const initialCards = [
   {
     name: 'Архыз',
@@ -56,18 +66,32 @@ function fillFormFields() {
 }
 
 // Функция переключения видимости попапа
-function togglePopup() {
-  popup.classList.toggle('popup_opened');
+function togglePopup(popupElement) {
+  popupElement.classList.toggle('popup_opened');
 }
 
-// Функция обработчика отправки формы
-function handleFormSubmit (evt) {
+// Функция обработчика отправки формы профиля
+function handleEditProfileFormSubmit (evt) {
   // Отменить стандартное поведение
   evt.preventDefault(); 
   // Заменить данные в верстке
   profileName.textContent = nameInput.value;
   profileJob.textContent =  jobInput.value;
-  togglePopup();
+  togglePopup(editProfilePopup);
+}
+
+// Функция обработчика отправки формы профиля
+function handleAddPlaceFormSubmit (evt) {
+  // Отменить стандартное поведение
+  evt.preventDefault(); 
+  // Создать новую карточку
+  if (placeInput.value && linkInput.value) {
+    renderCardsFromArray([{
+      name: placeInput.value,
+      link: linkInput.value
+    }]);
+  }
+  togglePopup(addPlacePopup);
 }
 
 // Привязка функций к кнопкам
@@ -76,16 +100,22 @@ function handleFormSubmit (evt) {
 renderCardsFromArray(initialCards);
 
 // Привязка функции togglePopup к кнопкам на верстке
-popupCloseBtn.addEventListener('click', togglePopup);
+popupCloseBtnsArr.forEach((element) => 
+  element.addEventListener('click', ({target}) => 
+    togglePopup(target.parentElement.parentElement)));
+
 editProfileBtn.addEventListener('click', () => {
   // Открыть попап
-  togglePopup();
+  togglePopup(editProfilePopup);
   // Загрузить данные в поля
   fillFormFields();
 });
+addPlaceBtn.addEventListener('click', () => togglePopup(addPlacePopup));
 
-// Прикрепление обработчика к форме при отправке
-formElement.addEventListener('submit', handleFormSubmit);
+
+// Прикрепление обработчика к формам при отправке
+editProfileFormElement.addEventListener('submit', handleEditProfileFormSubmit);
+addPlaceFormElement.addEventListener('submit', handleAddPlaceFormSubmit);
 
 // Переключение лайков
 elements.addEventListener('click', ({ target }) => {
