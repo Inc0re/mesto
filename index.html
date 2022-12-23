@@ -26,48 +26,7 @@
       </section>
       <section>
         <ul class="elements">
-          <li class="element">
-            <img class="element__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
-            <div class="element__control">
-              <h2 class="element__title">Карачаевск</h2>
-              <button type="button" class="element__like element__like_active"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img class="element__image" src="./images/elbrus.jpg" alt="Эльбрус">
-            <div class="element__control">
-              <h2 class="element__title">Гора Эльбрус</h2>
-              <button type="button" class="element__like"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img class="element__image" src="./images/dambay.jpg" alt="Домбай">
-            <div class="element__control">
-              <h2 class="element__title">Домбай</h2>
-              <button type="button" class="element__like"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img class="element__image" src="./images/elbrus.jpg" alt="Эльбрус">
-            <div class="element__control">
-              <h2 class="element__title">Гора Эльбрус</h2>
-              <button type="button" class="element__like"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img class="element__image" src="./images/dambay.jpg" alt="Домбай">
-            <div class="element__control">
-              <h2 class="element__title">Домбай</h2>
-              <button type="button" class="element__like"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img class="element__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
-            <div class="element__control">
-              <h2 class="element__title">Карачаево-Черкесия</h2>
-              <button type="button" class="element__like"></button>
-            </div>
-          </li>
+          <!-- Карточки сгенерируются JS из массива с помощью template -->
         </ul>
       </section>
     </main>
@@ -86,6 +45,15 @@
       </div>
     </div>
   </div>
+  <template id="card">
+    <li class="element">
+      <img class="element__image" alt="Карачаевск">
+      <div class="element__control">
+        <h2 class="element__title"></h2>
+        <button type="button" class="element__like"></button>
+      </div>
+    </li>
+  </template>
   <script src="./js/index.js"></script>
 </body>
 
