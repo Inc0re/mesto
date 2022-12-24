@@ -104,6 +104,11 @@ popupCloseBtnsArr.forEach((element) =>
   element.addEventListener('click', ({target}) => 
     togglePopup(target.parentElement.parentElement)));
 
+// Удаление карточек
+elements.querySelectorAll('.element__delete').forEach((element) =>
+  element.addEventListener('click', ({target}) =>
+    target.parentElement.remove()));
+
 editProfileBtn.addEventListener('click', () => {
   // Открыть попап
   togglePopup(editProfilePopup);
@@ -118,8 +123,13 @@ editProfileFormElement.addEventListener('submit', handleEditProfileFormSubmit);
 addPlaceFormElement.addEventListener('submit', handleAddPlaceFormSubmit);
 
 // Переключение лайков
-elements.addEventListener('click', ({ target }) => {
-  if (target.classList.contains('element__like')) { // если кликаем на элемент like то
-    target.classList.toggle('element__like_active');// ставим убираем модификатор активности
-  }
-});
+elements.querySelectorAll('.element__like').forEach((element) =>
+  element.addEventListener('click', ({target}) =>
+    target.classList.toggle('element__like_active')));
+
+// Старая реализация переключения лайков
+// elements.addEventListener('click', ({ target }) => {
+//   if (target.classList.contains('element__like')) { // если кликаем на элемент like то
+//     target.classList.toggle('element__like_active');// ставим убираем модификатор активности
+//   }
+// });
