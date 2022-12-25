@@ -17,6 +17,7 @@ const addPlacePopup = document.querySelector('#add-place');
 const addPlaceFormElement = addPlacePopup.querySelector('.edit-form');
 const placeInput = addPlaceFormElement.querySelector(`input[name='title']`);
 const linkInput = addPlaceFormElement.querySelector(`input[name='link']`);
+const imagePopup = document.querySelector('#picture-popup');
 // Шаблон карточки
 const cardTemplate = document.querySelector('#card').content;
 // Массив для заполнения карточек по умолчанию
@@ -54,6 +55,7 @@ function renderCardsFromArray(arr) {
   arr.forEach(element => {
     const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
     cardElement.querySelector('.element__image').src = element.link;
+    cardElement.querySelector('.element__image').alt = element.name;
     cardElement.querySelector('.element__title').textContent = element.name;
     elements.append(cardElement);
   });
@@ -94,6 +96,14 @@ function handleAddPlaceFormSubmit (evt) {
   togglePopup(addPlacePopup);
 }
 
+// Функция открыттия просмотре фото
+function openImagePopup(url, caption) {
+  imagePopup.querySelector('.popup__image').src = url;
+  imagePopup.querySelector('.popup__image').alt = caption;
+  imagePopup.querySelector('.popup__image-caption').textContent = caption;
+  imagePopup.classList.toggle('popup_opened');
+}
+
 // Привязка функций к кнопкам
 
 // Создание карточек из массива
@@ -126,6 +136,11 @@ addPlaceFormElement.addEventListener('submit', handleAddPlaceFormSubmit);
 elements.querySelectorAll('.element__like').forEach((element) =>
   element.addEventListener('click', ({target}) =>
     target.classList.toggle('element__like_active')));
+
+// Открытие картинки по клику
+document.querySelectorAll('.element').forEach((element) => 
+  element.querySelector('.element__image').addEventListener('click', ({target}) => 
+    openImagePopup(target.src, target.alt)));
 
 // Старая реализация переключения лайков
 // elements.addEventListener('click', ({ target }) => {
