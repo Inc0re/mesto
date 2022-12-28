@@ -17,3 +17,9 @@
     column-gap: 10px;
   }
 }
+
+@media screen and (max-width: 425px) {
+  .profile__info {
+    margin-left: 0;
+  }
+}

@@ -18,47 +18,34 @@ const addPlaceFormElement = addPlacePopup.querySelector('.edit-form');
 const placeInput = addPlaceFormElement.querySelector(`input[name='title']`);
 const linkInput = addPlaceFormElement.querySelector(`input[name='link']`);
 const imagePopup = document.querySelector('#picture-popup');
+const imagePopupImage = imagePopup.querySelector('.popup__image');
+const imagePopupCaption = imagePopup.querySelector('.popup__image-caption');
 // Шаблон карточки
 const cardTemplate = document.querySelector('#card').content;
-// Массив для заполнения карточек по умолчанию
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 
 // Функции
 
+// Функция создания карточки и добавления обработчиков для удаления и лайка
+function createCard(name, link) {
+  const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
+  const cardElementImage = cardElement.querySelector('.element__image');
+  const deleteButton = cardElement.querySelector('.element__delete');
+  const likeButton = cardElement.querySelector('.element__like');
+  
+  cardElementImage.src = link;
+  cardElementImage.alt = name;
+  cardElement.querySelector('.element__title').textContent = name;
+
+  deleteButton.addEventListener('click', () => cardElement.remove());
+  likeButton.addEventListener('click', () => likeButton.classList.toggle('element__like_active'));
+  cardElementImage.addEventListener('click', () => openImagePopup(link, name));
+
+  return cardElement;
+}
+
 // Функция создание карточек внутри elements из переданного массива
 function renderCardsFromArray(arr) {
-  arr.forEach(element => {
-    const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
-    cardElement.querySelector('.element__image').src = element.link;
-    cardElement.querySelector('.element__image').alt = element.name;
-    cardElement.querySelector('.element__title').textContent = element.name;
-    elements.append(cardElement);
-  });
+  arr.forEach(element => elements.append(createCard(element.name, element.link)));
 }
 
 // Функция подгрузки значений Name и Job из верстки в поля формы
@@ -67,9 +54,14 @@ function fillFormFields() {
   jobInput.value = profileJob.textContent;
 }
 
-// Функция переключения видимости попапа
-function togglePopup(popupElement) {
-  popupElement.classList.toggle('popup_opened');
+// Функция открытия попапа
+function openPopup(popupElement) {
+  popupElement.classList.add('popup_opened');
+}
+
+// Функция закрытия попапа
+function closePopup(popupElement) {
+  popupElement.classList.remove('popup_opened');
 }
 
 // Функция обработчика отправки формы профиля
@@ -79,7 +71,7 @@ function handleEditProfileFormSubmit (evt) {
   // Заменить данные в верстке
   profileName.textContent = nameInput.value;
   profileJob.textContent =  jobInput.value;
-  togglePopup(editProfilePopup);
+  closePopup(editProfilePopup);
 }
 
 // Функция обработчика отправки формы профиля
@@ -88,20 +80,17 @@ function handleAddPlaceFormSubmit (evt) {
   evt.preventDefault(); 
   // Создать новую карточку
   if (placeInput.value && linkInput.value) {
-    renderCardsFromArray([{
-      name: placeInput.value,
-      link: linkInput.value
-    }]);
+    elements.prepend(createCard(placeInput.value, linkInput.value));
   }
-  togglePopup(addPlacePopup);
+  closePopup(addPlacePopup);
 }
 
 // Функция открыттия просмотре фото
 function openImagePopup(url, caption) {
-  imagePopup.querySelector('.popup__image').src = url;
-  imagePopup.querySelector('.popup__image').alt = caption;
-  imagePopup.querySelector('.popup__image-caption').textContent = caption;
-  imagePopup.classList.toggle('popup_opened');
+  imagePopupImage.src = url;
+  imagePopupImage.alt = caption;
+  imagePopupCaption.textContent = caption;
+  imagePopup.classList.add('popup_opened');
 }
 
 // Привязка функций к кнопкам
@@ -112,39 +101,21 @@ renderCardsFromArray(initialCards);
 // Привязка функции togglePopup к кнопкам на верстке
 popupCloseBtnsArr.forEach((element) => 
   element.addEventListener('click', ({target}) => 
-    togglePopup(target.parentElement.parentElement)));
+    closePopup(target.closest('.popup'))));
 
-// Удаление карточек
-elements.querySelectorAll('.element__delete').forEach((element) =>
-  element.addEventListener('click', ({target}) =>
-    target.parentElement.remove()));
+
 
 editProfileBtn.addEventListener('click', () => {
   // Открыть попап
-  togglePopup(editProfilePopup);
+  openPopup(editProfilePopup);
   // Загрузить данные в поля
   fillFormFields();
 });
-addPlaceBtn.addEventListener('click', () => togglePopup(addPlacePopup));
+addPlaceBtn.addEventListener('click', () => openPopup(addPlacePopup));
 
 
 // Прикрепление обработчика к формам при отправке
 editProfileFormElement.addEventListener('submit', handleEditProfileFormSubmit);
 addPlaceFormElement.addEventListener('submit', handleAddPlaceFormSubmit);
 
-// Переключение лайков
-elements.querySelectorAll('.element__like').forEach((element) =>
-  element.addEventListener('click', ({target}) =>
-    target.classList.toggle('element__like_active')));
 
-// Открытие картинки по клику
-document.querySelectorAll('.element').forEach((element) => 
-  element.querySelector('.element__image').addEventListener('click', ({target}) => 
-    openImagePopup(target.src, target.alt)));
-
-// Старая реализация переключения лайков
-// elements.addEventListener('click', ({ target }) => {
-//   if (target.classList.contains('element__like')) { // если кликаем на элемент like то
-//     target.classList.toggle('element__like_active');// ставим убираем модификатор активности
-//   }
-// });
