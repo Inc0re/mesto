@@ -111,7 +111,11 @@ editProfileBtn.addEventListener('click', () => {
   // Загрузить данные в поля
   fillFormFields();
 });
-addPlaceBtn.addEventListener('click', () => openPopup(addPlacePopup));
+addPlaceBtn.addEventListener('click', () => {
+  placeInput.value = '';
+  linkInput.value = '';
+  openPopup(addPlacePopup);
+});
 
 
 // Прикрепление обработчика к формам при отправке
