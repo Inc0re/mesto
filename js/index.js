@@ -90,7 +90,7 @@ function openImagePopup(url, caption) {
   imagePopupImage.src = url;
   imagePopupImage.alt = caption;
   imagePopupCaption.textContent = caption;
-  imagePopup.classList.add('popup_opened');
+  openPopup(imagePopup);
 }
 
 // Привязка функций к кнопкам
