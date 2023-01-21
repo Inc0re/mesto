@@ -106,14 +106,25 @@ renderCardsFromArray(initialCards);
 //     closePopup(target.closest('.popup'))));
 
 // Закрытие попапа при клике на крестик или на оверлей (через всплытие)
-popupsArr.forEach((popup) => 
-  popup.addEventListener('click', (evt) => {
+popupsArr.forEach(popup => {
+  popup.addEventListener('click', evt => {
     if (evt.target.classList.contains('popup')) {
       closePopup(evt.target);
     } else if (evt.target.classList.contains('popup__close')) {
       closePopup(evt.target.closest('.popup'));
     }
-  }));
+  });
+});
+
+// Закрытие попапов при нажатии Escape
+document.addEventListener('keydown', evt => {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    if (openedPopup) {
+      openedPopup.classList.remove('popup_opened');
+    }
+  }
+});
 
 // Кнопка изменения профиля (карандаш)
 editProfileBtn.addEventListener('click', () => {
