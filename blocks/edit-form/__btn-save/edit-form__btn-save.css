@@ -18,6 +18,14 @@
   opacity: 0.8;
 }
 
+.edit-form__btn-save:disabled {
+  opacity: 0.2;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid black;
+  cursor: not-allowed;
+}
+
 @media screen and (max-width: 425px) {
   .edit-form__btn-save {
     font-size: 14px;

@@ -8,10 +8,9 @@
   font-size: 14px;
   font-weight: 400;
   padding: 0;
+  width: 100%;
 }
 
-/* @media screen and (max-width: 425px) {
-  .edit-form__field {
-    
-  }
-} */
+.edit-form__field:invalid {
+  border-color: #f00;
+}
