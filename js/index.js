@@ -23,6 +23,8 @@ const imagePopupCaption = imagePopup.querySelector('.popup__image-caption');
 // Шаблон карточки
 const cardTemplate = document.querySelector('#card').content;
 
+const popupsArr = Array.from(document.querySelectorAll('.popup'));
+
 // Функции
 
 // Функция создания карточки и добавления обработчиков для удаления и лайка
@@ -93,24 +95,35 @@ function openImagePopup(url, caption) {
   openPopup(imagePopup);
 }
 
-// Привязка функций к кнопкам
+// Вызов функций и создание обработчиков
 
 // Создание карточек из массива
 renderCardsFromArray(initialCards);
 
-// Привязка функции togglePopup к кнопкам на верстке
-popupCloseBtnsArr.forEach((element) => 
-  element.addEventListener('click', ({target}) => 
-    closePopup(target.closest('.popup'))));
+// // Закрытие попапа при нажатии на крестик (предыдущая версия)
+// popupCloseBtnsArr.forEach((element) => 
+//   element.addEventListener('click', ({target}) => 
+//     closePopup(target.closest('.popup'))));
 
+// Закрытие попапа при клике на крестик или на оверлей (через всплытие)
+popupsArr.forEach((popup) => 
+  popup.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('popup')) {
+      closePopup(evt.target);
+    } else if (evt.target.classList.contains('popup__close')) {
+      closePopup(evt.target.closest('.popup'));
+    }
+  }));
 
-
+// Кнопка изменения профиля (карандаш)
 editProfileBtn.addEventListener('click', () => {
   // Открыть попап
   openPopup(editProfilePopup);
   // Загрузить данные в поля
   fillFormFields();
 });
+
+// Кнопка добааления места (+)
 addPlaceBtn.addEventListener('click', () => {
   placeInput.value = '';
   linkInput.value = '';
