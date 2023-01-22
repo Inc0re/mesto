@@ -37,11 +37,12 @@ function hideInputError(inputElement, inputErrorClass) {
 
 // Включение валидации
 function enableValidation({
+  formSelector,
   inputSelector,
   submitButtonSelector,
   inputErrorSelector
 }) {
-  Array.from(document.forms).forEach(formElement => {
+  Array.from(document.querySelectorAll(formSelector)).forEach(formElement => {
     const inputList = Array.from(formElement.querySelectorAll(inputSelector));
     const buttonElement = formElement.querySelector(submitButtonSelector);
     const inputErrorClass = inputErrorSelector;
@@ -56,6 +57,7 @@ function enableValidation({
 };
 
 enableValidation({
+  formSelector: '.edit-form',
   inputSelector: '.edit-form__field',
   submitButtonSelector: '.edit-form__btn-save',
   inputErrorSelector: '.edit-form__error',

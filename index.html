@@ -38,16 +38,16 @@
         <button class="popup__close" type="button"></button>
         <form action="#" class="edit-form" method="post" name="profile" novalidate>
           <h2 class="edit-form__title">Редактировать профиль</h2>
-          <label class="edit-form__wrapper">Имя
+          <div class="edit-form__wrapper">
             <input class="edit-form__field" name="name" type="text" placeholder="Имя" required minlength="2"
               maxlength="40">
             <span class="edit-form__error"></span>
-          </label>
-          <label class="edit-form__wrapper">Место работы
+          </div>
+          <div class="edit-form__wrapper">
             <input class="edit-form__field" name="job" type="text" placeholder="Место работы" required minlength="2"
               maxlength="200">
             <span class="edit-form__error"></span>
-          </label>
+          </div>
           <button class="edit-form__btn-save" type="submit">Сохранить</button>
         </form>
       </div>
