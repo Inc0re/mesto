@@ -11,6 +11,6 @@
   width: 100%;
 }
 
-.edit-form__field:invalid {
+.edit-form__field:not(:placeholder-shown):invalid{
   border-color: #f00;
 }
