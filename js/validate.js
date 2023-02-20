@@ -56,9 +56,9 @@ function enableValidation({
   });
 };
 
-enableValidation({
-  formSelector: '.edit-form',
-  inputSelector: '.edit-form__field',
-  submitButtonSelector: '.edit-form__btn-save',
-  inputErrorSelector: '.edit-form__error',
-});
+// enableValidation({
+//   formSelector: '.edit-form',
+//   inputSelector: '.edit-form__field',
+//   submitButtonSelector: '.edit-form__btn-save',
+//   inputErrorSelector: '.edit-form__error',
+// });

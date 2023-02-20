@@ -1,3 +1,5 @@
+// Import section
+import FormValidator from "./FormValidator.js";
 // Секция выбора нужных элементов на странице
 // Константы и переменные
 const popupCloseBtnsArr = document.querySelectorAll('.popup__close');
@@ -24,6 +26,20 @@ const imagePopupCaption = imagePopup.querySelector('.popup__image-caption');
 const cardTemplate = document.querySelector('#card').content;
 // Список всех попапов
 const popupsArr = Array.from(document.querySelectorAll('.popup'));
+
+
+
+// Validation config
+const validationConfig = {
+  formSelector: '.edit-form',
+  inputSelector: '.edit-form__field',
+  submitButtonSelector: '.edit-form__btn-save',
+  inputErrorSelector: '.edit-form__error',
+};
+
+// Enable validation
+const validator = new FormValidator(validationConfig);
+validator.enableValidation();
 
 // Функции
 
