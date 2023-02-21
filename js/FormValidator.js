@@ -1,9 +1,10 @@
 class FormValidator {
-  constructor(config) {
+  constructor(config, formElement) {
     this._formSelector = config.formSelector;
     this._inputSelector = config.inputSelector;
     this._submitButtonSelector = config.submitButtonSelector;
     this._inputErrorSelector = config.inputErrorSelector;
+    this._formElement = formElement;
   }
 
   // Имеет ли форма невалидный инпут
@@ -45,32 +46,23 @@ class FormValidator {
     errorElement.textContent = '';
   }
 
-  // Добавить обработчики сабмита формы
-  _setEventListeners() {}
-
-  // Добавить слушатели
-  _handleFormSubmit() {}
-
   // Включение валидации
   enableValidation() {
-    Array.from(document.querySelectorAll(this._formSelector)).forEach(
-      formElement => {
-        const inputList = Array.from(
-          formElement.querySelectorAll(this._inputSelector)
-        );
-        const buttonElement = formElement.querySelector(
-          this._submitButtonSelector
-        );
-        const inputErrorClass = this._inputErrorSelector;
-
-        inputList.forEach(inputElement => {
-          inputElement.addEventListener('input', () => {
-            this._checkInputValidity(inputElement, inputErrorClass);
-            this._toggleButtonState(inputList, buttonElement);
-          });
-        });
-      }
+    const formElement = this._formElement;
+    const inputList = Array.from(
+      formElement.querySelectorAll(this._inputSelector)
     );
+    const buttonElement = formElement.querySelector(
+      this._submitButtonSelector
+    );
+    const inputErrorClass = this._inputErrorSelector;
+
+    inputList.forEach(inputElement => {
+      inputElement.addEventListener('input', () => {
+        this._checkInputValidity(inputElement, inputErrorClass);
+        this._toggleButtonState(inputList, buttonElement);
+      });
+    });
   }
 }
 

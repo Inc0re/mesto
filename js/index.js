@@ -1,8 +1,8 @@
 // Import section
 import FormValidator from "./FormValidator.js";
+import { validationConfig, initialCards } from "./config.js";
 // Секция выбора нужных элементов на странице
 // Константы и переменные
-const popupCloseBtnsArr = document.querySelectorAll('.popup__close');
 const profileEditBtn = document.querySelector('.profile__edit-button');
 const placeAddBtn = document.querySelector('.profile__add-button');
 const elements = document.querySelector('.elements');
@@ -27,19 +27,12 @@ const cardTemplate = document.querySelector('#card').content;
 // Список всех попапов
 const popupsArr = Array.from(document.querySelectorAll('.popup'));
 
+// Enable validation for each form
+const profileEditValidator = new FormValidator(validationConfig, profileEditFormElement);
+profileEditValidator.enableValidation();
 
-
-// Validation config
-const validationConfig = {
-  formSelector: '.edit-form',
-  inputSelector: '.edit-form__field',
-  submitButtonSelector: '.edit-form__btn-save',
-  inputErrorSelector: '.edit-form__error',
-};
-
-// Enable validation
-const validator = new FormValidator(validationConfig);
-validator.enableValidation();
+const placeAddValidator = new FormValidator(validationConfig, placeAddFormElement);
+placeAddValidator.enableValidation();
 
 // Функции
 
@@ -103,7 +96,7 @@ function handleAddPlaceFormSubmit (evt) {
   closePopup(placeAddPopup);
 }
 
-// Функция открыттия просмотре фото
+// Функция открытия просмотра фото
 function openImagePopup(url, caption) {
   imagePopupImage.src = url;
   imagePopupImage.alt = caption;
@@ -124,10 +117,6 @@ function closeByEsc(evt) {
 // Создание карточек из массива
 renderCardsFromArray(initialCards);
 
-// // Закрытие попапа при нажатии на крестик (предыдущая версия)
-// popupCloseBtnsArr.forEach((element) => 
-//   element.addEventListener('click', ({target}) => 
-//     closePopup(target.closest('.popup'))));
 
 // Закрытие попапа при клике на крестик или на оверлей (через всплытие)
 popupsArr.forEach(popup => {
@@ -146,7 +135,7 @@ profileEditBtn.addEventListener('click', () => {
   fillFormFields();
 });
 
-// Кнопка добааления места (+)
+// Кнопка добавления места (+)
 placeAddBtn.addEventListener('click', () => {
   placeInput.value = '';
   linkInput.value = '';

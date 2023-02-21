@@ -1,5 +1,5 @@
 // Массив для заполнения карточек по умолчанию
-const initialCards = [
+export const initialCards = [
   {
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -25,3 +25,11 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+
+// Validation config
+export const validationConfig = {
+  formSelector: '.edit-form',
+  inputSelector: '.edit-form__field',
+  submitButtonSelector: '.edit-form__btn-save',
+  inputErrorSelector: '.edit-form__error',
+};
