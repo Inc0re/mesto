@@ -15,11 +15,11 @@ class FormValidator {
   }
 
   // Изменение состояние кнопки
-  _toggleButtonState(inputList, buttonElement) {
-    if (this._hasInvalidInput(inputList)) {
-      buttonElement.disabled = true;
+  _toggleButtonState() {
+    if (this._hasInvalidInput(this._inputList)) {
+      this._buttonElement.disabled = true;
     } else {
-      buttonElement.disabled = false;
+      this._buttonElement.disabled = false;
     }
   }
 
@@ -49,18 +49,17 @@ class FormValidator {
   // Включение валидации
   enableValidation() {
     const formElement = this._formElement;
-    const inputList = Array.from(
+    this._inputList = Array.from(
       formElement.querySelectorAll(this._inputSelector)
     );
-    const buttonElement = formElement.querySelector(
+    this._buttonElement = formElement.querySelector(
       this._submitButtonSelector
     );
     const inputErrorClass = this._inputErrorSelector;
-
-    inputList.forEach(inputElement => {
+    this._inputList.forEach(inputElement => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement, inputErrorClass);
-        this._toggleButtonState(inputList, buttonElement);
+        this._toggleButtonState();
       });
     });
   }

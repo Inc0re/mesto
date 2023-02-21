@@ -19,8 +19,9 @@ class Card {
   getElement() {
     this._element = this._getElementFromTemplate();
     this._element.querySelector('.element__title').textContent = this._name;
-    this._element.querySelector('.element__image').src = this._link;
-    this._element.querySelector('.element__image').alt = this._name;
+    this._elementImage = this._element.querySelector('.element__image');
+    this._elementImage.src = this._link;
+    this._elementImage.alt = this._name;
 
     this._setEventListeners();
 
