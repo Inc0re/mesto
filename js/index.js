@@ -150,6 +150,7 @@ placeAddBtn.addEventListener('click', () => {
 });
 
 // Form errors reset function
+// TODO: move to FormValidator class
 function resetFormErrors(formElement) {
   formElement
     .querySelectorAll(validationConfig.inputErrorSelector)
