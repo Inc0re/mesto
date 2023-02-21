@@ -1,6 +1,7 @@
 // Import section
+import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
-import { validationConfig, initialCards } from "./config.js";
+import { validationConfig, initialCards, cardTemplate } from "./config.js";
 // Секция выбора нужных элементов на странице
 // Константы и переменные
 const profileEditBtn = document.querySelector('.profile__edit-button');
@@ -22,8 +23,7 @@ const linkInput = placeAddFormElement.querySelector(`input[name='link']`);
 const imagePopup = document.querySelector('#picture-popup');
 const imagePopupImage = imagePopup.querySelector('.popup__image');
 const imagePopupCaption = imagePopup.querySelector('.popup__image-caption');
-// Шаблон карточки
-const cardTemplate = document.querySelector('#card').content;
+
 // Список всех попапов
 const popupsArr = Array.from(document.querySelectorAll('.popup'));
 
@@ -36,27 +36,12 @@ placeAddValidator.enableValidation();
 
 // Функции
 
-// Функция создания карточки и добавления обработчиков для удаления и лайка
-function createCard(name, link) {
-  const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
-  const cardElementImage = cardElement.querySelector('.element__image');
-  const deleteButton = cardElement.querySelector('.element__delete');
-  const likeButton = cardElement.querySelector('.element__like');
-  
-  cardElementImage.src = link;
-  cardElementImage.alt = name;
-  cardElement.querySelector('.element__title').textContent = name;
-
-  deleteButton.addEventListener('click', () => cardElement.remove());
-  likeButton.addEventListener('click', () => likeButton.classList.toggle('element__like_active'));
-  cardElementImage.addEventListener('click', () => openImagePopup(link, name));
-
-  return cardElement;
-}
-
 // Функция создание карточек внутри elements из переданного массива
 function renderCardsFromArray(arr) {
-  arr.forEach(element => elements.append(createCard(element.name, element.link)));
+  arr.forEach(element => {
+    const card = new Card(element, cardTemplate, openImagePopup);
+    elements.append(card.getElement());
+  });
 }
 
 // Функция подгрузки значений Name и Job из верстки в поля формы
@@ -92,7 +77,8 @@ function handleAddPlaceFormSubmit (evt) {
   // Отменить стандартное поведение
   evt.preventDefault(); 
   // Создать новую карточку
-  elements.prepend(createCard(placeInput.value, linkInput.value));
+  const card = new Card({name: placeInput.value, link: linkInput.value}, cardTemplate, openImagePopup);
+  elements.prepend(card.getElement());
   closePopup(placeAddPopup);
 }
 

@@ -1,4 +1,7 @@
-// Массив для заполнения карточек по умолчанию
+// Card template
+export const cardTemplate = document.querySelector('#card').content;
+
+// Initial cards array
 export const initialCards = [
   {
     name: 'Архыз',
