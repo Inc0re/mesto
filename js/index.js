@@ -1,7 +1,12 @@
 // Import section
+// import Popup from './Popup.js';
+import PopupWithImage from './PopupWithImage.js';
+import PopupWithForm from './PopupWithForm.js';
+import UserInfo from './UserInfo.js';
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
-import { validationConfig, initialCards, cardTemplate } from './config.js';
+import { validationConfig, initialCards, cardTemplate} from './config.js';
+import Section from './Section.js';
 // Секция выбора нужных элементов на странице
 // Константы и переменные
 const profileEditBtn = document.querySelector('.profile__edit-button');
@@ -43,12 +48,14 @@ placeAddValidator.enableValidation();
 // Функции
 
 // Функция создание карточек внутри elements из переданного массива
-function renderCardsFromArray(arr) {
-  arr.forEach(element => {
-    const card = createCard(element);
-    elements.append(card.getElement());
-  });
-}
+// function renderCardsFromArray(arr) {
+//   arr.forEach(element => {
+//     const card = createCard(element);
+//     elements.append(card.getElement());
+//   });
+// }
+const cardsList = new Section({ items: initialCards, renderer: createCard }, '.elements');
+cardsList.renderItems();
 
 // Функция подгрузки значений Name и Job из верстки в поля формы
 function fillFormFields() {
@@ -56,17 +63,17 @@ function fillFormFields() {
   jobInput.value = profileJob.textContent;
 }
 
-// Функция открытия попапа
-function openPopup(popupElement) {
-  popupElement.classList.add('popup_opened');
-  document.addEventListener('keydown', closeByEsc);
-}
+// // Функция открытия попапа
+// function openPopup(popupElement) {
+//   popupElement.classList.add('popup_opened');
+//   document.addEventListener('keydown', closeByEsc);
+// }
 
-// Функция закрытия попапа
-function closePopup(popupElement) {
-  popupElement.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closeByEsc);
-}
+// // Функция закрытия попапа
+// function closePopup(popupElement) {
+//   popupElement.classList.remove('popup_opened');
+//   document.removeEventListener('keydown', closeByEsc);
+// }
 
 // Функция обработчика отправки формы профиля
 function handleEditProfileFormSubmit(evt) {
@@ -103,29 +110,29 @@ function openImagePopup(url, caption) {
 }
 
 // Закрытие попапа на Esc
-function closeByEsc(evt) {
-  if (evt.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened');
-    closePopup(openedPopup);
-  }
-}
+// function closeByEsc(evt) {
+//   if (evt.key === 'Escape') {
+//     const openedPopup = document.querySelector('.popup_opened');
+//     closePopup(openedPopup);
+//   }
+// }
 
 // Вызов функций и создание обработчиков
 
-// Создание карточек из массива
-renderCardsFromArray(initialCards);
+// // Создание карточек из массива
+// renderCardsFromArray(initialCards);
 
 // Закрытие попапа при клике на крестик или на оверлей (через всплытие)
-popupsArr.forEach(popup => {
-  popup.addEventListener('click', evt => {
-    if (
-      evt.target.classList.contains('popup') ||
-      evt.target.classList.contains('popup__close')
-    ) {
-      closePopup(popup);
-    }
-  });
-});
+// popupsArr.forEach(popup => {
+//   popup.addEventListener('click', evt => {
+//     if (
+//       evt.target.classList.contains('popup') ||
+//       evt.target.classList.contains('popup__close')
+//     ) {
+//       closePopup(popup);
+//     }
+//   });
+// });
 
 // Кнопка изменения профиля (карандаш)
 profileEditBtn.addEventListener('click', () => {
