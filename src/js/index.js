@@ -6,18 +6,22 @@ import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 import { validationConfig, initialCards, cardTemplate } from './config.js';
 import Section from './Section.js';
-// Секция выбора нужных элементов на странице
-// Константы и переменные
+
+// import index.css from styles folder for webpack to process it
+import '../pages/index.css'; // добавьте импорт главного файла стилей
+
+// Select elements from DOM
+// Constants and variables
 const profileEditBtn = document.querySelector('.profile__edit-button');
 const placeAddBtn = document.querySelector('.profile__add-button');
-// Элементы попапа редактирования профиля
+// Profile edit popup elements
 const profileEditPopupElement = document.querySelector('#edit-profile');
 const profileEditFormElement =
   profileEditPopupElement.querySelector('.edit-form');
 const nameInput = profileEditFormElement.querySelector(`input[name='name']`);
 const jobInput = profileEditFormElement.querySelector(`input[name='job']`);
 
-// Элементы попапа добавления места
+// Add place popup elements
 const placeAddPopupElement = document.querySelector('#add-place');
 const placeAddFormElement = placeAddPopupElement.querySelector('.edit-form');
 const placeInput = placeAddFormElement.querySelector(`input[name='title']`);
