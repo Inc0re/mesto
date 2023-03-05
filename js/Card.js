@@ -1,9 +1,9 @@
 class Card {
-  constructor(data, cardTemplate, openImagePopup) {
+  constructor(data, cardTemplate, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
     this._cardTemplate = cardTemplate;
-    this._openImagePopup = openImagePopup;
+    this._handleCardClick = handleCardClick;
 
     this._deleteCard = this._deleteCard.bind(this);
     this._likeCard = this._likeCard.bind(this);
@@ -51,7 +51,7 @@ class Card {
   }
 
   _openPreview() {
-    this._openImagePopup(this._link, this._name);
+    this._handleCardClick(this._link, this._name);
   }
 }
 
