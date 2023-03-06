@@ -9,7 +9,7 @@ class PopupWithForm extends Popup {
     this._button = this._form.querySelector('.edit-form__btn-save');
   }
 
-  _getInputValues() {
+  getInputValues() {
     this._formValues = {};
     this._inputList.forEach(input => {
       this._formValues[input.name] = input.value;
@@ -17,8 +17,14 @@ class PopupWithForm extends Popup {
     return this._formValues;
   }
 
-  _setEventListeners() {
-    super._setEventListeners();
+  setInputValues(data) {
+    this._inputList.forEach(input => {
+      input.value = data[input.name];
+    });
+  }
+
+  setEventListeners() {
+    super.setEventListeners();
     this._form.addEventListener('submit', this._submitForm);
   }
 

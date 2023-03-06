@@ -1,11 +1,11 @@
 // Import section
-import PopupWithImage from './PopupWithImage.js';
-import PopupWithForm from './PopupWithForm.js';
-import UserInfo from './UserInfo.js';
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
-import { validationConfig, initialCards, cardTemplate } from './config.js';
-import Section from './Section.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import { validationConfig, initialCards, cardTemplate } from '../cfg/config.js';
+import Section from '../components/Section.js';
 
 // import index.css from styles folder for webpack to process it
 import '../pages/index.css'; // добавьте импорт главного файла стилей
@@ -18,15 +18,10 @@ const placeAddBtn = document.querySelector('.profile__add-button');
 const profileEditPopupElement = document.querySelector('#edit-profile');
 const profileEditFormElement =
   profileEditPopupElement.querySelector('.edit-form');
-const nameInput = profileEditFormElement.querySelector(`input[name='name']`);
-const jobInput = profileEditFormElement.querySelector(`input[name='job']`);
 
 // Add place popup elements
 const placeAddPopupElement = document.querySelector('#add-place');
 const placeAddFormElement = placeAddPopupElement.querySelector('.edit-form');
-const placeInput = placeAddFormElement.querySelector(`input[name='title']`);
-const linkInput = placeAddFormElement.querySelector(`input[name='link']`);
-
 // Create class instances
 
 // Enable validation for each form
@@ -49,6 +44,7 @@ const cardsList = new Section(
 cardsList.renderItems();
 
 const popupWithImage = new PopupWithImage('#picture-popup');
+popupWithImage.setEventListeners();
 
 const userInfo = new UserInfo({
   nameSelector: '.profile__name',
@@ -59,17 +55,12 @@ const profileEditPopup = new PopupWithForm(
   '#edit-profile',
   handleEditProfileFormSubmit
 );
+profileEditPopup.setEventListeners();
 
 const placeAddPopup = new PopupWithForm('#add-place', handleAddPlaceFormSubmit);
+placeAddPopup.setEventListeners();
 
 // Functions
-
-// Get user info and fill form fields
-function fillFormFields() {
-  const userData = userInfo.getUserInfo();
-  nameInput.value = userData.name;
-  jobInput.value = userData.job;
-}
 
 // Open popup with image
 function handleCardClick(link, name) {
@@ -87,7 +78,7 @@ function handleEditProfileFormSubmit(evt) {
   // Prevent default form submit
   evt.preventDefault();
   // Get data from form instance and set it to user info
-  userInfo.setUserInfo(profileEditPopup._getInputValues());
+  userInfo.setUserInfo(profileEditPopup.getInputValues());
   // Close popup
   profileEditPopup.close();
 }
@@ -97,8 +88,7 @@ function handleAddPlaceFormSubmit(evt) {
   // Prevent default form submit
   evt.preventDefault();
   // Create new card element
-  const card = createCard(placeAddPopup._getInputValues());
-  // const card = createCard({ name: placeInput.value, link: linkInput.value });
+  const card = createCard(placeAddPopup.getInputValues());
   cardsList.addItem(card.getElement(), true);
   placeAddPopup.close();
 }
@@ -106,25 +96,16 @@ function handleAddPlaceFormSubmit(evt) {
 // Profile edit button (✎)
 profileEditBtn.addEventListener('click', () => {
   // Reset form errors
-  resetFormErrors(profileEditFormElement);
+  profileEditValidator.resetValidation();
   // Open popup
   profileEditPopup.open();
-  // Fill form fields
-  fillFormFields();
+  // Fill form fields with user info
+  profileEditPopup.setInputValues(userInfo.getUserInfo());
 });
 
 // Add place button (+)
 placeAddBtn.addEventListener('click', () => {
   // Reset form validation errors
-  resetFormErrors(placeAddFormElement);
+  placeAddValidator.resetValidation();
   placeAddPopup.open();
 });
-
-// Form errors reset function
-function resetFormErrors(formElement) {
-  formElement
-    .querySelectorAll(validationConfig.inputErrorSelector)
-    .forEach(error => {
-      error.textContent = '';
-    });
-}
