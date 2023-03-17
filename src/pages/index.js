@@ -29,7 +29,7 @@ const api = new Api({
   headers: {
     authorization: 'c519be36-1688-462e-850e-24d5f59a3900',
     'Content-Type': 'application/json',
-  }
+  },
 });
 
 // Enable validation for each form
@@ -45,13 +45,10 @@ const placeAddValidator = new FormValidator(
 );
 placeAddValidator.enableValidation();
 
-const cardsList = new Section(
-  { renderer: createCard },
-  '.elements'
-);
+const cardsList = new Section({ renderer: createCard }, '.elements');
 
 // Fetch initial cards from server and render them
-api.getInitialCards().then((data) => {
+api.getInitialCards().then(data => {
   cardsList.renderItems(data);
 });
 
@@ -67,8 +64,7 @@ const userInfo = new UserInfo({
 });
 
 // Fetch user info from server and set it to user info
-api.getCurrentUserInfo().then((data) => {
-  console.log(data);
+api.getCurrentUserInfo().then(data => {
   userInfo.setUserInfo(data);
 });
 
@@ -90,7 +86,7 @@ function handleCardClick(link, name) {
 
 // Create and return new card element
 function createCard(data) {
-  const card = new Card(data, cardTemplate, handleCardClick);
+  const card = new Card(data, cardTemplate, handleCardClick, handleDeleteCard, userInfo.getUserId());
   return card;
 }
 
@@ -98,8 +94,11 @@ function createCard(data) {
 function handleEditProfileFormSubmit(evt) {
   // Prevent default form submit
   evt.preventDefault();
-  // Get data from form instance and set it to user info
-  userInfo.setUserInfo(profileEditPopup.getInputValues());
+  // Send user info to server
+  api.updateUserInfo(profileEditPopup.getInputValues()).then(data => {
+    // Set user info to user info
+    userInfo.setUserInfo(data);
+  });
   // Close popup
   profileEditPopup.close();
 }
@@ -108,10 +107,22 @@ function handleEditProfileFormSubmit(evt) {
 function handleAddPlaceFormSubmit(evt) {
   // Prevent default form submit
   evt.preventDefault();
-  // Create new card element
-  const card = createCard(placeAddPopup.getInputValues());
-  cardsList.addItem(card.getElement(), true);
+  // Send new card data to server
+  api.addNewCard(placeAddPopup.getInputValues()).then(data => {
+    // Add new card to DOM
+    const card = createCard(data);
+    cardsList.addItem(card.getElement(), true);
+  });
   placeAddPopup.close();
+}
+
+// Delete card handler function
+function handleDeleteCard(card) {
+  // Send delete request to server
+  api.deleteCard(card.getCardID()).then(() => {
+    // Remove card from DOM
+    card.deleteCard();
+  });
 }
 
 // Profile edit button (✎)

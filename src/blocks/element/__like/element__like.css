@@ -9,6 +9,7 @@
   border: 0 none;
   outline: 0 none;
   cursor: pointer;
+  align-self: flex-end;
 }
 
 .element__like:hover {

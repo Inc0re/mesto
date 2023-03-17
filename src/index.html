@@ -5,8 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <link rel="stylesheet" href="./pages/index.css"> -->
-  <!-- <script src="./js/index.js" type="module" defer></script> -->
+  <link rel="shortcut icon" href="<%=require('./images/favicon.png')%>" type="image/png">
   <title>Место</title>
 </head>
 
@@ -27,7 +26,7 @@
       </section>
       <section>
         <ul class="elements">
-          <!-- Карточки сгенерируются JS из массива с помощью template -->
+          <!-- Cards data getting from server and then rendering -->
         </ul>
       </section>
     </main>
@@ -86,7 +85,10 @@
       <img class="element__image" alt="">
       <div class="element__control">
         <h2 class="element__title"></h2>
-        <button type="button" class="element__like"></button>
+        <div class="element__like-wrapper">
+          <button type="button" class="element__like"></button>
+          <p class="element__like-counter"></p>
+        </div>
       </div>
     </li>
   </template>

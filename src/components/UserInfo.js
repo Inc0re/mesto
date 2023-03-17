@@ -16,6 +16,11 @@ class UserInfo {
     this._name.textContent = data.name;
     this._job.textContent = data.about;
     this._avatar.style.backgroundImage = `url(${data.avatar})`;
+    this._userId = data._id;
+  }
+
+  getUserId() {
+    return this._userId;
   }
 }
 

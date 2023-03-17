@@ -4,5 +4,5 @@
   display: grid;
   grid-template-columns: 1fr min-content;
   width: 85%;
-  margin: 25px auto 24px;
+  margin: 22px auto;
 }
