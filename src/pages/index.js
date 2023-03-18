@@ -1,6 +1,7 @@
 // Import section
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithButton from '../components/PopupWithButton.js';
 import UserInfo from '../components/UserInfo.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
@@ -77,6 +78,9 @@ profileEditPopup.setEventListeners();
 const placeAddPopup = new PopupWithForm('#add-place', handleAddPlaceFormSubmit);
 placeAddPopup.setEventListeners();
 
+const deleteCardPopup = new PopupWithButton('#confirm');
+deleteCardPopup.setEventListeners();
+
 // Functions
 
 // Open popup with image
@@ -118,10 +122,15 @@ function handleAddPlaceFormSubmit(evt) {
 
 // Delete card handler function
 function handleDeleteCard(card) {
-  // Send delete request to server
-  api.deleteCard(card.getCardID()).then(() => {
-    // Remove card from DOM
-    card.deleteCard();
+  // Open popup
+  deleteCardPopup.open();
+  // Set callback
+  deleteCardPopup.setCallback(() => {
+    // Send delete request to server
+    api.deleteCard(card.getCardID()).then(() => {
+      // Remove card from DOM
+      card.deleteCard();
+    }).then(deleteCardPopup.close());
   });
 }
 
