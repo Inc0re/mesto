@@ -90,7 +90,7 @@ function handleCardClick(link, name) {
 
 // Create and return new card element
 function createCard(data) {
-  const card = new Card(data, cardTemplate, handleCardClick, handleDeleteCard, userInfo.getUserId());
+  const card = new Card(data, cardTemplate, handleCardClick, handleDeleteCard, handleLikeCard, userInfo.getUserId());
   return card;
 }
 
@@ -132,6 +132,26 @@ function handleDeleteCard(card) {
       card.deleteCard();
     }).then(deleteCardPopup.close());
   });
+}
+
+// Like card handler function
+function handleLikeCard(card) {
+  //Check if card is liked
+  if (card.isLiked) {
+    // Send dislike request to server
+    api.dislikeCard(card.getCardID()).then(data => {
+      // Set likes count
+      card.setLikesCount(data.likes.length);
+      card.isLiked = false;
+    });
+  } else {
+    // Send like request to server
+    api.likeCard(card.getCardID()).then(data => {
+      // Set likes count
+      card.setLikesCount(data.likes.length);
+      card.isLiked = true;
+    });
+  }
 }
 
 // Profile edit button (✎)

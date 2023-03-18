@@ -51,6 +51,20 @@ class Api {
       headers: this._headers,
     }).then(this._getJson);
   }
+
+  likeCard(cardID) {
+    return fetch(`${this._baseUrl}/cards/${cardID}/likes`, {
+      method: 'PUT',
+      headers: this._headers,
+    }).then(this._getJson);
+  }
+
+  dislikeCard(cardID) {
+    return fetch(`${this._baseUrl}/cards/${cardID}/likes`, {
+      method: 'DELETE',
+      headers: this._headers,
+    }).then(this._getJson);
+  }
 }
 
 export default Api;
