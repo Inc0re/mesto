@@ -36,5 +36,6 @@
 @import url(../blocks/edit-form/__title/edit-form__title.css);
 @import url(../blocks/edit-form/__field/edit-form__field.css);
 @import url(../blocks/edit-form/__btn-save/edit-form__btn-save.css);
+@import url(../blocks/edit-form/__btn-save/_margin/edit-form__btn-save_margin_low.css);
 @import url(../blocks/edit-form/__error/edit-form__error.css);
 @import url(../blocks/edit-form/__wrapper/edit-form__wrapper.css);
