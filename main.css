@@ -15,9 +15,11 @@
 .elements{-moz-column-gap:17px;column-gap:17px;display:grid;grid-template-columns:repeat(auto-fill,minmax(282px,1fr));list-style:none;margin:0 auto;padding:50px 0 67px;row-gap:20px}@media screen and (max-width:425px){.elements{padding:36px 0 48px;width:88%}}
 .element{background:#fff;border-radius:10px;overflow:hidden;position:relative}
 .element__image{aspect-ratio:1/1;cursor:pointer;-o-object-fit:cover;object-fit:cover;-o-object-position:center;object-position:center;width:100%}
-.element__control{align-items:center;display:grid;grid-template-columns:1fr min-content;margin:25px auto 24px;width:85%}
+.element__control{align-items:center;display:grid;grid-template-columns:1fr min-content;margin:22px auto;width:85%}
 .element__title{color:#000;font-size:24px;font-weight:900;line-height:1.2;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.element__like{background-color:transparent;background-image:url(cbed5331d270056562b2.svg);background-size:contain;border:0;cursor:pointer;height:19px;outline:0 none;padding:0;transition:opacity .3s linear;width:22px}.element__like:hover{opacity:.5}
+.element__like-wrapper{display:flex;flex-direction:column}
+.element__like-counter{color:#000;cursor:default;font-size:13px;font-weight:400;line-height:1.2;margin:3px auto 0;max-width:50px;overflow:hidden;padding:0;text-overflow:ellipsis}
+.element__like{align-self:flex-end;background-color:transparent;background-image:url(cbed5331d270056562b2.svg);background-size:contain;border:0;cursor:pointer;height:19px;outline:0 none;padding:0;transition:opacity .3s linear;width:22px}.element__like:hover{opacity:.5}
 .element__like_active{background-image:url(35948469632d0421d697.svg)}
 .element__delete{background-color:transparent;background-image:url(ce3b64935accf9b8212e.svg);background-size:contain;border:0;cursor:pointer;height:19px;outline:0 none;padding:0;position:absolute;right:20px;top:20px;transition:opacity .3s linear;width:18px}.element__delete:hover{opacity:.6}
 .footer{margin:0 auto;max-width:880px;padding-bottom:60px}@media screen and (max-width:425px){.footer{padding-bottom:36px}}
@@ -34,6 +36,7 @@
 .edit-form__title{color:#000;font-size:24px;font-weight:900;line-height:1.21;margin-bottom:14px;margin-top:0}@media screen and (max-width:425px){.edit-form__title{font-size:18px;margin-bottom:40px}}
 .edit-form__field{background-color:transparent;border:0;border-bottom:1px solid rgba(0,0,0,.2);font-size:14px;font-weight:400;line-height:2;margin-top:30px;outline:0 none;padding:0;width:100%}.edit-form__field:not(:-moz-placeholder-shown):invalid{border-color:red}.edit-form__field:not(:placeholder-shown):invalid{border-color:red}
 .edit-form__btn-save{background-color:#000;border:0;border-radius:2px;color:#fff;cursor:pointer;font-size:18px;font-weight:400;line-height:1.22;margin-top:48px;min-height:50px;outline:0 none;padding:0;transition:opacity .3s linear}.edit-form__btn-save:hover{opacity:.8}.edit-form__btn-save:disabled{background-color:#fff;border:1px solid #000;color:#000;cursor:not-allowed;opacity:.2}@media screen and (max-width:425px){.edit-form__btn-save{font-size:14px;margin-top:45px;min-height:46px}}
+.edit-form__btn-save_margin_low{margin-top:20px}
 .edit-form__error{color:red;font-size:12px;font-weight:400;left:0;opacity:1;position:absolute;top:calc(100% + 5px);transition:.3s}
 .edit-form__wrapper{position:relative}
 
