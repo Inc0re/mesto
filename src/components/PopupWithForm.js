@@ -32,6 +32,11 @@ class PopupWithForm extends Popup {
     super.close();
     this._form.reset();
   }
+
+  renderLoading(text) {
+    this._button.textContent = text;
+  }
+
 }
 
 export default PopupWithForm;

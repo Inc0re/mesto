@@ -5,7 +5,7 @@ import PopupWithButton from '../components/PopupWithButton.js';
 import UserInfo from '../components/UserInfo.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
-import { validationConfig, cardTemplate, initialCards } from '../cfg/config.js';
+import { validationConfig, cardTemplate } from '../cfg/config.js';
 import Section from '../components/Section.js';
 import Api from '../components/Api.js';
 
@@ -107,30 +107,48 @@ function createCard(data) {
 
 // Edit profile form submit handler function
 function handleEditProfileFormSubmit(evt) {
+  // Show loading state
+  profileEditPopup.renderLoading('Сохранение...');
   // Prevent default form submit
   evt.preventDefault();
   // Send user info to server
   api.updateUserInfo(profileEditPopup.getInputValues()).then(data => {
     // Set user info to user info
     userInfo.setUserInfo(data);
+    // Hide loading state
+    profileEditPopup.renderLoading('Сохранить');
+    // Close popup
+    profileEditPopup.close();
+  }).catch(err => {
+    console.log(err);
+    profileEditPopup.renderLoading('Сохранить');
   });
-  // Close popup
-  profileEditPopup.close();
 }
 
 // Edit avatar form submit handler function
 function handleAvatarEditFormSubmit(evt) {
+  // Show loading state
+  avatarEditPopup.renderLoading('Сохранение...');
   // Prevent default form submit
   evt.preventDefault();
   // Send user info to server
   api.updateUserAvatar(avatarEditPopup.getInputValues()).then(data => {
     // Set user info to user info
     userInfo.setUserInfo(data);
+    // Hide loading state
+    avatarEditPopup.renderLoading('Сохранить');
+    // Close popup
+    avatarEditPopup.close();
+  }).catch(err => {
+    console.log(err);
+    avatarEditPopup.renderLoading('Сохранить');
   });
 }
 
 // Add place form submit handler function
 function handleAddPlaceFormSubmit(evt) {
+  // Show loading state
+  placeAddPopup.renderLoading('Создание...');
   // Prevent default form submit
   evt.preventDefault();
   // Send new card data to server
@@ -138,8 +156,13 @@ function handleAddPlaceFormSubmit(evt) {
     // Add new card to DOM
     const card = createCard(data);
     cardsList.addItem(card.getElement(), true);
+    // Hide loading state
+    placeAddPopup.renderLoading('Создать');
+    placeAddPopup.close();
+  }).catch(err => {
+    console.log(err);
+    placeAddPopup.renderLoading('Создать');
   });
-  placeAddPopup.close();
 }
 
 // Delete card handler function
@@ -153,6 +176,8 @@ function handleDeleteCard(card) {
       // Remove card from DOM
       card.deleteCard();
     }).then(deleteCardPopup.close());
+  }).catch(err => {
+    console.log(err);
   });
 }
 
