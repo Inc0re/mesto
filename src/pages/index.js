@@ -16,6 +16,7 @@ import '../pages/index.css'; // добавьте импорт главного �
 // Constants and variables
 const profileEditBtn = document.querySelector('.profile__edit-button');
 const placeAddBtn = document.querySelector('.profile__add-button');
+const avatarEditBtn = document.querySelector('.profile__avatar-edit');
 // Profile edit popup elements
 const profileEditPopupElement = document.querySelector('#edit-profile');
 const profileEditFormElement =
@@ -24,6 +25,7 @@ const profileEditFormElement =
 // Add place popup elements
 const placeAddPopupElement = document.querySelector('#add-place');
 const placeAddFormElement = placeAddPopupElement.querySelector('.edit-form');
+const avatarEditFormElement = document.querySelector('#edit-avatar');
 // Create class instances
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-61',
@@ -45,6 +47,12 @@ const placeAddValidator = new FormValidator(
   placeAddFormElement
 );
 placeAddValidator.enableValidation();
+
+const avatarEditValidator = new FormValidator(
+  validationConfig,
+  avatarEditFormElement
+);
+avatarEditValidator.enableValidation();
 
 const cardsList = new Section({ renderer: createCard }, '.elements');
 
@@ -78,6 +86,9 @@ profileEditPopup.setEventListeners();
 const placeAddPopup = new PopupWithForm('#add-place', handleAddPlaceFormSubmit);
 placeAddPopup.setEventListeners();
 
+const avatarEditPopup = new PopupWithForm('#edit-avatar', handleAvatarEditFormSubmit);
+avatarEditPopup.setEventListeners();
+
 const deleteCardPopup = new PopupWithButton('#confirm');
 deleteCardPopup.setEventListeners();
 
@@ -105,6 +116,17 @@ function handleEditProfileFormSubmit(evt) {
   });
   // Close popup
   profileEditPopup.close();
+}
+
+// Edit avatar form submit handler function
+function handleAvatarEditFormSubmit(evt) {
+  // Prevent default form submit
+  evt.preventDefault();
+  // Send user info to server
+  api.updateUserAvatar(avatarEditPopup.getInputValues()).then(data => {
+    // Set user info to user info
+    userInfo.setUserInfo(data);
+  });
 }
 
 // Add place form submit handler function
@@ -162,6 +184,14 @@ profileEditBtn.addEventListener('click', () => {
   profileEditPopup.open();
   // Fill form fields with user info
   profileEditPopup.setInputValues(userInfo.getUserInfo());
+});
+
+// Avatar edit button (✎)
+avatarEditBtn.addEventListener('click', () => {
+  // Reset form errors
+  avatarEditValidator.resetValidation();
+  // Open popup
+  avatarEditPopup.open();
 });
 
 // Add place button (+)
