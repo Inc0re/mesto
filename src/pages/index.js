@@ -56,12 +56,22 @@ avatarEditValidator.enableValidation();
 
 const cardsList = new Section({ renderer: createCard }, '.elements');
 
-// Fetch initial cards from server and render them
-api.getInitialCards().then(data => {
-  cardsList.renderItems(data);
-});
-
-// cardsList.renderItems(initialCards);
+// Promise all to prevent loading of cards before user info is loaded
+Promise.all([
+  // Fetch user info from server and set it to user info
+  api.getCurrentUserInfo(),
+  // Fetch initial cards from server and render them
+  api.getInitialCards(),
+])
+  .then(([userData, cardsData]) => {
+    // Set user info
+    userInfo.setUserInfo(userData);
+    // Render cards
+    cardsList.renderItems(cardsData);
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
 const popupWithImage = new PopupWithImage('#picture-popup');
 popupWithImage.setEventListeners();
@@ -70,11 +80,6 @@ const userInfo = new UserInfo({
   nameSelector: '.profile__name',
   jobSelector: '.profile__job',
   avatarSelector: '.profile__avatar',
-});
-
-// Fetch user info from server and set it to user info
-api.getCurrentUserInfo().then(data => {
-  userInfo.setUserInfo(data);
 });
 
 const profileEditPopup = new PopupWithForm(
@@ -115,12 +120,12 @@ function handleEditProfileFormSubmit(evt) {
   api.updateUserInfo(profileEditPopup.getInputValues()).then(data => {
     // Set user info to user info
     userInfo.setUserInfo(data);
-    // Hide loading state
-    profileEditPopup.renderLoading('Сохранить');
     // Close popup
     profileEditPopup.close();
   }).catch(err => {
     console.log(err);
+  }).finally(() => {
+    // Hide loading state
     profileEditPopup.renderLoading('Сохранить');
   });
 }
@@ -135,12 +140,12 @@ function handleAvatarEditFormSubmit(evt) {
   api.updateUserAvatar(avatarEditPopup.getInputValues()).then(data => {
     // Set user info to user info
     userInfo.setUserInfo(data);
-    // Hide loading state
-    avatarEditPopup.renderLoading('Сохранить');
     // Close popup
     avatarEditPopup.close();
   }).catch(err => {
     console.log(err);
+  }).finally(() => {
+    // Hide loading state
     avatarEditPopup.renderLoading('Сохранить');
   });
 }
@@ -156,11 +161,11 @@ function handleAddPlaceFormSubmit(evt) {
     // Add new card to DOM
     const card = createCard(data);
     cardsList.addItem(card.getElement(), true);
-    // Hide loading state
-    placeAddPopup.renderLoading('Создать');
     placeAddPopup.close();
   }).catch(err => {
     console.log(err);
+  }).finally(() => {
+    // Hide loading state
     placeAddPopup.renderLoading('Создать');
   });
 }
@@ -175,7 +180,8 @@ function handleDeleteCard(card) {
     api.deleteCard(card.getCardID()).then(() => {
       // Remove card from DOM
       card.deleteCard();
-    }).then(deleteCardPopup.close());
+      deleteCardPopup.close();
+    });
   }).catch(err => {
     console.log(err);
   });
@@ -190,6 +196,7 @@ function handleLikeCard(card) {
       // Set likes count
       card.setLikesCount(data.likes.length);
       card.isLiked = false;
+      card.toggleLikeBtn();
     });
   } else {
     // Send like request to server
@@ -197,31 +204,46 @@ function handleLikeCard(card) {
       // Set likes count
       card.setLikesCount(data.likes.length);
       card.isLiked = true;
+      card.toggleLikeBtn();
     });
   }
 }
 
-// Profile edit button (✎)
-profileEditBtn.addEventListener('click', () => {
-  // Reset form errors
+// Callbacks
+
+// Profile edit button (✎) click callback
+function profileEditCallback() {
+  // Reset form validation errors
   profileEditValidator.resetValidation();
   // Open popup
   profileEditPopup.open();
   // Fill form fields with user info
   profileEditPopup.setInputValues(userInfo.getUserInfo());
-});
+}
 
-// Avatar edit button (✎)
-avatarEditBtn.addEventListener('click', () => {
-  // Reset form errors
+// Avatar edit button (✎) click callback
+function avatarEditCallback() {
+  // Reset form validation errors
   avatarEditValidator.resetValidation();
   // Open popup
   avatarEditPopup.open();
-});
+}
 
-// Add place button (+)
-placeAddBtn.addEventListener('click', () => {
+// Place add button (+) click callback
+function placeAddCallback() {
   // Reset form validation errors
   placeAddValidator.resetValidation();
+  // Open popup
   placeAddPopup.open();
-});
+}
+
+// Event listeners
+
+// Profile edit button (✎)
+profileEditBtn.addEventListener('click', profileEditCallback);
+
+// Avatar edit button (✎)
+avatarEditBtn.addEventListener('click', avatarEditCallback);
+
+// Add place button (+)
+placeAddBtn.addEventListener('click', placeAddCallback);

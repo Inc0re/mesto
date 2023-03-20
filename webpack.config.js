@@ -30,9 +30,20 @@ module.exports = {
         exclude: '/node_modules/',
       },
       {
-        // REGEX to search for images and fonts
-        test: /\.(png|svg|jpg|gif|woff(2)?|eot|ttf|otf)$/,
+        // REGEX to search for images
+        test: /\.(png|svg|jpg|gif)$/,
         type: 'asset/resource',
+        generator: {
+          filename: 'images/[name].[hash][ext]',
+        },
+      },
+      {
+        // REGEX to search for fonts
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[name].[hash][ext]',
+        },
       },
       {
         // Use rule for .css files
@@ -56,5 +67,5 @@ module.exports = {
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin(),
   ],
-  devtool: 'eval-source-map'
+  devtool: 'eval-source-map',
 };
